@@ -38,16 +38,19 @@ class TestOne(BaseClass):
         checkOutPage.getCheckOne().click()
         checkOutPage.getCheckTwo().click()
 
+
         confirmPage = ConfirmedPage(self.driver)
         confirmPage.sendKeys().send_keys('ind')
 
         wait =WebDriverWait(self.driver, 10)
         wait.until(EC.presence_of_all_elements_located((By.LINK_TEXT,"India")))
-        self.driver.find_element(By.LINK_TEXT, "India").click()
-        self.driver.find_element(By.CSS_SELECTOR, value='div[class="checkbox checkbox-primary"]').click()
-        self.driver.find_element(By.CSS_SELECTOR, value='input[type=submit]').click()
+
+        confirmPage.sendKeys2().click()
+        confirmPage.chekBox().click()
+        confirmPage.ClickConfirm().click()
+
         self.driver.implicitly_wait(5)
-        successText = self.driver.find_element(By.CLASS_NAME, "alert-success").text
+        successText = confirmPage.successTexT().text
         sl.sleep(5)
         assert "Success! Thank you!" in successText 
         self.driver.quit()
