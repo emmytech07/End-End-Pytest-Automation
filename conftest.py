@@ -1,3 +1,4 @@
+from optparse import Option
 import pytest
 from selenium import webdriver
 import time as sl
@@ -6,6 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -18,8 +20,15 @@ def setup(request):
     browser_name = request.config.getoption("browser_name")
 
     if browser_name == "chrome":
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument("--disable-gpu")
+        chrome_options.add_argument("--log-level=3")
+        chrome_options.add_argument("--disable-extensions")
+        chrome_options.add_argument("test-type")
+        
+
         service_obj = Service("D:/chromedriver/chromedriver")
-        driver = webdriver.Chrome(service=service_obj)
+        driver = webdriver.Chrome(service=service_obj, options=chrome_options)
         driver.implicitly_wait(5)
         driver.maximize_window()
         driver.get("http://www.rahulshettyacademy.com/angularpractice/")
