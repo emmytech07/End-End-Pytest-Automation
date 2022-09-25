@@ -1,4 +1,5 @@
 
+from lib2to3.pgen2 import driver
 from selenium import webdriver
 import time as sl
 import pytest
@@ -7,13 +8,18 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from PageObjects.HomePage import HomePage
 from utilities.BaseClass import BaseClass
+
 
 class TestOne(BaseClass):
 
     def test_e2e(self):
-        
-        self.driver.find_element(By.XPATH, value='//a[text()="Shop"]').click()
+        # self.driver.find_element(By.XPATH, value='//a[text()="Shop"]').click()
+
+        homePage = HomePage(self.driver)
+        homePage.shopItems().click()
         products = self.driver.find_elements(by='xpath', value='//div[@class="card h-100"]')
         for product in products:
 
