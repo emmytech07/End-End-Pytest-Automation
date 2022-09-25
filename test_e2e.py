@@ -1,3 +1,4 @@
+from End-End-Pytest-Automation.uilities.BaseClass import BaseClass
 from selenium import webdriver
 import time as sl
 import pytest
@@ -7,8 +8,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-@pytest.mark.usefixtures("setup")
-class TestOne:
+
+class TestOne(BaseClass):
 
     def test_e2e(self):
         
