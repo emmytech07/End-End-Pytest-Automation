@@ -15,19 +15,21 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="class")
 def setup(request):
-    brower_name = request.config.getOption("browser_name")
+    browser_name = request.config.getoption("browser_name")
 
-    if brower_name == "chrome":
+    if browser_name == "chrome":
         service_obj = Service("D:/chromedriver/chromedriver")
         driver = webdriver.Chrome(service=service_obj)
         driver.implicitly_wait(5)
         driver.maximize_window()
         driver.get("http://www.rahulshettyacademy.com/angularpractice/")
 
-    elif brower_name == "firefox":
+    elif browser_name == "firefox":
+        driver = webdriver.Firefox(executable_path="C:\\geckodriver.exe")
         pass
 
-    elif brower_name == "IE":
+    elif browser_name == "IE":
+        # driver = webdriver.
         pass
 
     request.cls.driver = driver
