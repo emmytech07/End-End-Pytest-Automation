@@ -1,5 +1,5 @@
 
-from lib2to3.pgen2 import driver
+
 from selenium import webdriver
 import time as sl
 import pytest
@@ -9,7 +9,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+from PageObjects.CheckOut import CheckOutPage
 from PageObjects.HomePage import HomePage
+
+from PageObjects.ConfirmedPage import ConfirmedPage
 from utilities.BaseClass import BaseClass
 
 
@@ -20,17 +23,24 @@ class TestOne(BaseClass):
 
         homePage = HomePage(self.driver)
         homePage.shopItems().click()
-        products = self.driver.find_elements(by='xpath', value='//div[@class="card h-100"]')
-        for product in products:
 
-            productName = product.find_element(By.XPATH, value='./div/h4/a').text
-            
-            if productName== 'iphone X':
-                product.find_element(By.XPATH, value='./div/button').click()
-            
-        self.driver.find_element(By.XPATH, value="//a[@class='nav-link btn btn-primary']").click()
-        self.driver.find_element(By.CSS_SELECTOR, value="button[class='btn btn-success']").click()
-        self.driver.find_element(By.XPATH, value="//input[@id='country']").send_keys('ind')
+        checkOutPage = CheckOutPage(self.driver)
+        cards = checkOutPage.getCardTitles()
+
+        i = -1
+        for card in cards:
+            i = i + 1
+            cardText = card.text
+            # print(cardText)
+            if cardText== 'iphone X':
+                checkOutPage.getCardFooter()[i].click()
+
+        checkOutPage.getCheckOne().click()
+        checkOutPage.getCheckTwo().click()
+
+        confirmPage = ConfirmedPage(self.driver)
+        confirmPage.sendKeys().send_keys('ind')
+
         wait =WebDriverWait(self.driver, 10)
         wait.until(EC.presence_of_all_elements_located((By.LINK_TEXT,"India")))
         self.driver.find_element(By.LINK_TEXT, "India").click()
