@@ -1,4 +1,4 @@
-from End-End-Pytest-Automation.uilities.BaseClass import BaseClass
+
 from selenium import webdriver
 import time as sl
 import pytest
@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from utilities.BaseClass import BaseClass
 
 class TestOne(BaseClass):
 
