@@ -1,6 +1,5 @@
 from selenium import webdriver
 import time as sl
-import pytest
 from selenium.webdriver.chrome.service import Service 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
