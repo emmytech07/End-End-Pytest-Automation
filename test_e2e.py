@@ -41,9 +41,8 @@ class TestOne(BaseClass):
 
         confirmPage = ConfirmedPage(self.driver)
         confirmPage.sendKeys().send_keys('ind')
-
-        wait =WebDriverWait(self.driver, 10)
-        wait.until(EC.presence_of_all_elements_located((By.LINK_TEXT,"India")))
+        #Run explicit
+        self.varifyLinkPresence("India")
 
         confirmPage.sendKeys2().click()
         confirmPage.chekBox().click()
