@@ -1,4 +1,5 @@
 
+from lib2to3.pgen2 import driver
 from selenium import webdriver
 import time as sl
 import pytest
@@ -9,12 +10,17 @@ from utilities.BaseClass import BaseClass
 from PageObjects.HomePage import HomePage 
 
 class TestHomePage(BaseClass): 
-    def test_formSubmission(self):
+    def test_formSubmission(self, getData):
         homepage = HomePage(self.driver)
-        homepage.getname().send_keys("Ilesanmi Emmanuel")
-        homepage.getmail().send_keys("Ile07@gmail.com")
+        homepage.getname().send_keys(getData[0])
+        homepage.getmail().send_keys(getData[1])
         homepage.getcheckbox().click() 
         homepage.getsubmit().click()
 
         alertText =homepage.getSuccess().text
         assert ('Success' in alertText)
+        self.driver.refresh()
+  
+    @pytest.fixture(params=[("ilesanmi", "Emmanuel"),("John wesley", 'Faith')  ])
+    def getData(self,request):
+        return request.param
