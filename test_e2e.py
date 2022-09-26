@@ -20,10 +20,10 @@ class TestOne(BaseClass):
 
     def test_e2e(self):
         # self.driver.find_element(By.XPATH, value='//a[text()="Shop"]').click()
-
+        log = self.getLogger()
         homePage = HomePage(self.driver)
         homePage.shopItems().click()
-
+        log.info("getting all the card title")
         checkOutPage = CheckOutPage(self.driver)
         cards = checkOutPage.getCardTitles()
 
@@ -31,7 +31,7 @@ class TestOne(BaseClass):
         for card in cards:
             i = i + 1
             cardText = card.text
-            # print(cardText)
+            log.info(cardText)
             if cardText== 'iphone X':
                 checkOutPage.getCardFooter()[i].click()
 
@@ -40,6 +40,7 @@ class TestOne(BaseClass):
 
 
         confirmPage = ConfirmedPage(self.driver)
+        log.info("Entering country name")
         confirmPage.sendKeys().send_keys('ind')
         #Run explicit
         self.varifyLinkPresence("India")
@@ -51,5 +52,6 @@ class TestOne(BaseClass):
         self.driver.implicitly_wait(5)
         successText = confirmPage.successTexT().text
         sl.sleep(5)
+        log.info("Text recieved from application")
         assert "Success! Thank you!" in successText 
         self.driver.quit()
