@@ -55,3 +55,4 @@ class TestOne(BaseClass):
         log.info("Text recieved from application")
         assert "Success! Thank you!" in successText 
         self.driver.quit()
+        log.info('success testing')
