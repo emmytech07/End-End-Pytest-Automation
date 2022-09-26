@@ -1,4 +1,4 @@
-from optparse import Option
+
 import pytest
 from selenium import webdriver
 import time as sl
