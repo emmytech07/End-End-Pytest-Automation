@@ -8,12 +8,13 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from utilities.BaseClass import BaseClass
 from PageObjects.HomePage import HomePage 
+from test_data.HomePageData import HomePageData
 
 class TestHomePage(BaseClass): 
     def test_formSubmission(self, getData):
         homepage = HomePage(self.driver)
-        homepage.getname().send_keys(getData[0])
-        homepage.getmail().send_keys(getData[1])
+        homepage.getname().send_keys(getData["firstname"])
+        homepage.getmail().send_keys(getData["lastname"])
         homepage.getcheckbox().click() 
         homepage.getsubmit().click()
 
@@ -21,6 +22,6 @@ class TestHomePage(BaseClass):
         assert ('Success' in alertText)
         self.driver.refresh()
   
-    @pytest.fixture(params=[("ilesanmi", "Emmanuel"),("John wesley", 'Faith')  ])
+    @pytest.fixture(params=HomePageData.test_HomePage_Data)
     def getData(self,request):
         return request.param
